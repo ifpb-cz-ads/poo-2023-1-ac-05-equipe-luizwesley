@@ -3,11 +3,26 @@ package model;
 import java.time.LocalDate;
 
 public class ContaPoupanca extends Conta{
-
     private double taxaJuros;
 
-    public ContaPoupanca(int agencia, int numero, double saldo, LocalDate dataAbertura, Cliente cliente, double taxaJuros) {
-        super(agencia, numero, saldo, dataAbertura, cliente);
+    public boolean sacar(double valor){
+        if(super.getSaldo() >= valor){
+            super.setSaldo(getSaldo()-valor);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean renderJuros(){
+        if(super.getSaldo()>0){
+            super.setSaldo(super.getSaldo() + super.getSaldo()*taxaJuros);
+            return true;
+        }
+        return false;
+    }
+    public ContaPoupanca(Cliente cliente, int agencia, int numero, double saldo, LocalDate dataAbertura,
+            double taxaJuros) {
+        super(cliente, agencia, numero, saldo, dataAbertura);
         this.taxaJuros = taxaJuros;
     }
 
@@ -18,21 +33,4 @@ public class ContaPoupanca extends Conta{
     public void setTaxaJuros(double taxaJuros) {
         this.taxaJuros = taxaJuros;
     }
-
-    @Override
-    public boolean sacar(double valor) {
-        //TODO: verificar as restrições
-        if(valor <= saldo){
-            saldo -= valor;
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public boolean renderJuros(){
-        saldo += saldo*taxaJuros/100;
-        return true;
-    }
-
 }
