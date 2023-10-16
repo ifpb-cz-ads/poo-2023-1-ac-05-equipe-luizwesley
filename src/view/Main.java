@@ -4,6 +4,8 @@ import model.ContaCorrente;
 import model.ContaPoupanca;
 import model.Endereco;
 import model.PessoaFisica;
+import model.PessoaJuridica;
+
 import java.util.Scanner;
 
 import java.time.LocalDate;
@@ -20,8 +22,8 @@ public class Main{
                 boolean flag = true;
                 
                 while(flag){
-                        System.out.println("Bem vindo ao sistema do nosso banco!!!");
-                        System.out.println("Escolha uma das ações:\n\n");
+                        System.out.println("\n\n------------Bem vindo ao sistema do nosso banco!!!------------");
+                        System.out.println("------------Escolha uma das ações:------------\n\n");
                         System.out.println("(1) - Para criar uma conta.");
 
                         System.out.println("(0) - Para encerrar sessão");
@@ -31,41 +33,64 @@ public class Main{
                         
                         
                         switch(choose){
+
+                                case 0:
+                                System.out.println("Sessão encerrada!");
+                                        flag = false;
+                                        break;
+
+
+
                                 case 1:
                                         System.out.println("(1) - Para conta Corrente.");
                                         System.out.println("(2) - Para conta Poupança.");
                                         int tipoConta = scan.nextInt();
+                                        scan.nextLine();
                                         if(tipoConta == 1){
                                                 // TODO
                                                 System.out.println("Vamos criar sua conta Corrente!");
-                                                System.out.println("Por favor nos informe o seu nome:");
-                                                String nome = scan.nextLine();
-                                                System.out.println("Ano de nascimento:");
-                                                int ano = scan.nextInt();
-                                                System.out.println("Mês de nascimento:");
-                                                int mes = scan.nextInt();
-                                                System.out.println("Dia de nascimento:");
-                                                int dia = scan.nextInt();
+                                               
                                                 System.out.println("Endereço:\n Rua:");
                                                 String rua = scan.nextLine();
                                                 System.out.println("Número:");
                                                 int num = scan.nextInt();
+                                                scan.nextLine();
                                                 System.out.println("Cidade:");
                                                 String cidade = scan.nextLine();                                                
                                                 Endereco endereco = new Endereco(rua, num, cidade);
                                                 System.out.println("Digite 1 para pessoa física:");
                                                 System.out.println("Digite 2 para pessoa jurídica:");
                                                 int escolhaPessoa = scan.nextInt();
+                                                scan.nextLine();
                                                 if(escolhaPessoa == 1){
+                                                        System.out.println("Por favor nos informe o seu nome:");
+                                                        String nome = scan.nextLine();
+                                                        System.out.println("Ano de nascimento:");
+                                                        int ano = scan.nextInt();
+                                                        System.out.println("Mês de nascimento:");
+                                                        int mes = scan.nextInt();
+                                                        System.out.println("Dia de nascimento:");
+                                                        int dia = scan.nextInt();
+                                                        scan.nextLine();
                                                         System.out.println("Digite seu CPF:");
                                                         String cpf = scan.nextLine();
                                                         PessoaFisica novoClienteFisica = new PessoaFisica(100, endereco, cpf, nome, LocalDate.of(ano, mes, dia));
                                                         ContaCorrente novaContaCorrente = new ContaCorrente(novoClienteFisica, 1, numContaCorr, 0, LocalDate.now(), 30);
                                                         numContaCorr++;
-                                                        System.out.println("Conta criada com sucesso");
+                                                        System.out.println("Conta criada com sucesso");                                          
+                                                }
+                                                if(escolhaPessoa == 2){
+                                                        System.out.println("Digite seu CNPJ:");
+                                                        String cnpj = scan.nextLine();
+                                                        System.out.println("Digite a razão social");
+                                                        String razao = scan.nextLine();
+                                                        PessoaJuridica novoClienteJuridica = new PessoaJuridica(200, endereco, cnpj, razao);
+                                                        ContaCorrente novaContaCorrente = new ContaCorrente(novoClienteJuridica, 1, numContaCorr, 0, LocalDate.now(), 60);
+                                                        numContaCorr++;
+                                                        System.out.println("Conta criada com sucesso\n\n");
 
 
-                                                        
+                                                
                                                 }       
 
 
@@ -75,26 +100,53 @@ public class Main{
                                         else if(tipoConta == 2){
                                                 // TODO
                                                 System.out.println("Vamos criar sua conta Poupança!");
-                                                System.out.println("Por favor nos informe o seu nome:");
-                                                String nome = scan.nextLine();
-                                                System.out.println("CPF:");
-                                                String cpf = scan.nextLine();
-                                                System.out.println("Ano de nascimento:");
-                                                int ano = scan.nextInt();
-                                                System.out.println("Mês de nascimento:");
-                                                int mes = scan.nextInt();
-                                                System.out.println("Dia de nascimento:");
-                                                int dia = scan.nextInt();
+                                               
                                                 System.out.println("Endereço:\n Rua:");
                                                 String rua = scan.nextLine();
                                                 System.out.println("Número:");
                                                 int num = scan.nextInt();
+                                                scan.nextLine();
                                                 System.out.println("Cidade:");
-                                                String cidade = scan.nextLine();
+                                                String cidade = scan.nextLine();                                                
+                                                Endereco endereco = new Endereco(rua, num, cidade);
+                                                System.out.println("Digite 1 para pessoa física:");
+                                                System.out.println("Digite 2 para pessoa jurídica:");
+                                                int escolhaPessoa = scan.nextInt();
+                                                scan.nextLine();
+                                                if(escolhaPessoa == 1){
+                                                        System.out.println("Por favor nos informe o seu nome:");
+                                                        String nome = scan.nextLine();
+                                                        System.out.println("Ano de nascimento:");
+                                                        int ano = scan.nextInt();
+                                                        System.out.println("Mês de nascimento:");
+                                                        int mes = scan.nextInt();
+                                                        System.out.println("Dia de nascimento:");
+                                                        int dia = scan.nextInt();
+                                                        scan.nextLine();
+                                                        System.out.println("Digite seu CPF:");
+                                                        String cpf = scan.nextLine();
+                                                        PessoaFisica novoClienteFisica = new PessoaFisica(100, endereco, cpf, nome, LocalDate.of(ano, mes, dia));
+                                                        ContaPoupanca novaContaPoupanca = new ContaPoupanca(novoClienteFisica, 1, numContaPoup, 0, LocalDate.now(), 30);
+                                                        numContaPoup++;
+                                                        System.out.println("Conta criada com sucesso");                                          
+                                                }
+                                                if(escolhaPessoa == 2){
+                                                        System.out.println("Digite seu CNPJ:");
+                                                        String cnpj = scan.nextLine();
+                                                        System.out.println("Digite a razão social");
+                                                        String razao = scan.nextLine();
+                                                        PessoaJuridica novoClienteJuridica = new PessoaJuridica(200, endereco, cnpj, razao);
+                                                        ContaPoupanca novaContaPoupanca = new ContaPoupanca(novoClienteJuridica, 1, numContaPoup, 0, LocalDate.now(), 60);
+                                                        numContaPoup++;
+                                                        System.out.println("Conta criada com sucesso\n\n");
+
+
+                                                
+                                                }       
                                                 break;
                                         }
                                         else{
-                                                System.out.println("Desculpe, valor inválido!!");
+                                                System.out.println("Desculpe, valor inválido!!\n\n");
                                                 break;
                                         }
                         }
