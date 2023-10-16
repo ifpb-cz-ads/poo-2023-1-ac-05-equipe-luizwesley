@@ -37,6 +37,8 @@ public class ContaCorrente extends Conta {
     public void setTaxaManutencao(double taxaManutencao) {
         this.taxaManutencao = taxaManutencao;
     }
+
+    @Override
     public boolean transferir(double valor, Conta conta){
         if(valor > super.getSaldo()+super.getCliente().getLimiteCredito()){
             return false;
