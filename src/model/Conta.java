@@ -8,6 +8,7 @@ public abstract class Conta {
     private int numero;
     private double saldo;
     private LocalDate dataAbertura;
+    private String tipo;               
 
     public abstract boolean sacar(double valor);
     
@@ -53,14 +54,23 @@ public abstract class Conta {
     public LocalDate getDataAbertura() {
         return dataAbertura;
     }
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public void setDataAbertura(LocalDate dataAbertura) {
         this.dataAbertura = dataAbertura;
     }
-    public Conta(Cliente cliente, int agencia, int numero, double saldo, LocalDate dataAbertura) {
+    public Conta(Cliente cliente, int agencia, int numero, double saldo, LocalDate dataAbertura, String tipo) {
         this.cliente = cliente;
         this.agencia = agencia;
         this.numero = numero;
         this.saldo = saldo;
         this.dataAbertura = dataAbertura;
+        this.tipo = tipo;
     }
 }

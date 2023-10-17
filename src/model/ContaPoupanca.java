@@ -22,7 +22,7 @@ public class ContaPoupanca extends Conta{
     }
     public ContaPoupanca(Cliente cliente, int agencia, int numero, double saldo, LocalDate dataAbertura,
             double taxaJuros) {
-        super(cliente, agencia, numero, saldo, dataAbertura);
+        super(cliente, agencia, numero, saldo, dataAbertura,"Popança");
         this.taxaJuros = taxaJuros;
     }
 

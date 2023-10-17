@@ -26,7 +26,7 @@ public class ContaCorrente extends Conta {
 
     public ContaCorrente(Cliente cliente, int agencia, int numero, double saldo, LocalDate dataAbertura,
             double taxaManutencao) {
-        super(cliente, agencia, numero, saldo, dataAbertura);
+        super(cliente, agencia, numero, saldo, dataAbertura,"Corrente");
         this.taxaManutencao = taxaManutencao;
     }
 

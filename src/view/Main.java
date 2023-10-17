@@ -1,5 +1,6 @@
 package view;
 import model.Cliente;
+import model.Conta;
 import model.ContaCorrente;
 import model.ContaPoupanca;
 import model.Endereco;
@@ -14,6 +15,11 @@ public class Main{
 
         static int numContaPoup = 0;
         static int numContaCorr = 1000;
+        static Conta[] contas = new Conta[100];
+        static int pos = 0;
+        /**
+         * @param args
+         */
         public static void main(String[] args) {
 
                 
@@ -24,10 +30,13 @@ public class Main{
                 while(flag){
                         System.out.println("\n\n------------Bem vindo ao sistema do nosso banco!!!------------");
                         System.out.println("------------Escolha uma das ações:------------\n\n");
-                        System.out.println("(1) - Para criar uma conta.");
+                        System.out.println("(1) - Para criar uma conta");
+ 
+                        System.out.println("(2) - Para ver todos os clientes");
+
+                        System.out.println("(3) - Para fazer uma tranferência");
 
                         System.out.println("(0) - Para encerrar sessão");
-
                         Scanner scan = new Scanner(System.in);
                         int choose = scan.nextInt();
                         
@@ -77,9 +86,11 @@ public class Main{
                                                         PessoaFisica novoClienteFisica = new PessoaFisica(100, endereco, cpf, nome, LocalDate.of(ano, mes, dia));
                                                         ContaCorrente novaContaCorrente = new ContaCorrente(novoClienteFisica, 1, numContaCorr, 0, LocalDate.now(), 30);
                                                         numContaCorr++;
+                                                        contas[pos] = novaContaCorrente;
+                                                        pos++;
                                                         System.out.println("Conta criada com sucesso");                                          
                                                 }
-                                                if(escolhaPessoa == 2){
+                                                else if(escolhaPessoa == 2){
                                                         System.out.println("Digite seu CNPJ:");
                                                         String cnpj = scan.nextLine();
                                                         System.out.println("Digite a razão social");
@@ -87,14 +98,10 @@ public class Main{
                                                         PessoaJuridica novoClienteJuridica = new PessoaJuridica(200, endereco, cnpj, razao);
                                                         ContaCorrente novaContaCorrente = new ContaCorrente(novoClienteJuridica, 1, numContaCorr, 0, LocalDate.now(), 60);
                                                         numContaCorr++;
+                                                        contas[pos] = novaContaCorrente;
+                                                        pos++;
                                                         System.out.println("Conta criada com sucesso\n\n");
-
-
-                                                
                                                 }       
-
-
-
                                                 break;
                                         }
                                         else if(tipoConta == 2){
@@ -128,6 +135,8 @@ public class Main{
                                                         PessoaFisica novoClienteFisica = new PessoaFisica(100, endereco, cpf, nome, LocalDate.of(ano, mes, dia));
                                                         ContaPoupanca novaContaPoupanca = new ContaPoupanca(novoClienteFisica, 1, numContaPoup, 0, LocalDate.now(), 30);
                                                         numContaPoup++;
+                                                        contas[pos] = novaContaPoupanca;
+                                                        pos++;
                                                         System.out.println("Conta criada com sucesso");                                          
                                                 }
                                                 if(escolhaPessoa == 2){
@@ -138,6 +147,8 @@ public class Main{
                                                         PessoaJuridica novoClienteJuridica = new PessoaJuridica(200, endereco, cnpj, razao);
                                                         ContaPoupanca novaContaPoupanca = new ContaPoupanca(novoClienteJuridica, 1, numContaPoup, 0, LocalDate.now(), 60);
                                                         numContaPoup++;
+                                                        contas[pos] = novaContaPoupanca;
+                                                        pos++;
                                                         System.out.println("Conta criada com sucesso\n\n");
 
 
@@ -149,6 +160,69 @@ public class Main{
                                                 System.out.println("Desculpe, valor inválido!!\n\n");
                                                 break;
                                         }
+                                case 2:
+                                        System.out.println("Contas cadastradas:");
+                                        if(contas[0] != null){
+                                                for (Conta conta : contas) {
+                                                        if(conta == null){
+                                                                break;
+                                                        }
+                                                        try {
+                                                                PessoaFisica pessoa = (PessoaFisica) conta.getCliente();
+                                                                System.out.println("\n---------------------------\n");
+                                                                if(pessoa.getNome() != null){
+                                                                        System.out.println("Cliente: "+pessoa.getNome());
+                                                                        System.out.println(("Tipo Conta = "+conta.getTipo()));
+                                                                        System.out.println("Saldo: "+conta.getSaldo());
+                                                                        System.out.println("Número: "+conta.getNumero());
+                                                                }
+                                                        } catch (Exception e) {
+                                                                PessoaJuridica empresa = (PessoaJuridica) conta.getCliente();
+                                                                System.out.println("Empresa: "+empresa.getRazaoSocial());
+                                                                System.out.println(("Tipo Conta = "+conta.getTipo()));
+                                                                System.out.println("Saldo: "+conta.getSaldo());
+                                                                System.out.println("Número: "+conta.getNumero());
+                                                        }
+                                                } 
+                                        }         
+                                        else{
+                                                System.out.println("Nenhuma conta cadastrada!");
+                                        }
+                                        break; 
+                                case 3:
+                                        System.out.println("Informe o valor da tranferência:");
+                                        double valor = scan.nextDouble();
+                                        System.out.println("Número da conta do titular:");
+                                        int numTitular = scan.nextInt();
+                                        System.out.println("Número da conta de destino:");
+                                        int numDestino = scan.nextInt();
+                                        Conta contaTitular = null;
+                                        Conta contaDestino = null;
+                                        
+                                        if(contas[0] != null){
+                                                for (Conta conta : contas) {
+                                                        if(conta != null){
+                                                                if(conta.getNumero() == numTitular){
+                                                                        contaTitular = conta;
+                                                                }
+                                                                if(conta.getNumero() == numDestino){
+                                                                        contaDestino = conta;
+                                                                }
+                                                        }
+                                                        
+                                                }
+                                                if(contaTitular != null && contaDestino != null){
+                                                        contaTitular.transferir(valor, contaDestino);
+                                                        System.out.println("Tranferência realizada com sucesso!");
+                                                }
+                                                else{
+                                                        System.out.println("Conta não encontrada!");
+                                                }
+                                        }
+                                        else{
+                                                System.out.println("ERRO! Nenhuma conta cadastrada!");
+                                        }
+                                        break;                
                         }
                 }
 
